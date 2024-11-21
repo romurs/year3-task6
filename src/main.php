@@ -6,8 +6,7 @@ use Roma\Task6\User;
 
 $user = new User();
 
-while(true)
-{
+while (true) {
   print("\n1: Вывести все данные \n2: Добавить пользователя\n3: Удалить пользователя (по id) \n4: Поиск пользователя \n5: Обновление пользователя \n");
   $actionNum = readline("Выберите действие: ");
 
@@ -21,7 +20,7 @@ while(true)
       $userEmail = readline("Email: ");
       $user->addUser($userName, $userEmail);
       break;
-    
+
     case 3:
       $user->showAllData();
       $id = readline("Введите id пользователя: ");

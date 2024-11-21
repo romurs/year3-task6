@@ -29,7 +29,7 @@ class User
     $this->pdo = new PDO($this->dsn, $this->db['user'], $this->db['passwd'], $this->opt);
   }
 
-  public function showAllData() : void
+  public function showAllData(): void
   {
     $sql = "SELECT * FROM Users";
     $stmt = $this->pdo->query($sql);
@@ -38,10 +38,10 @@ class User
     }
   }
 
-  public function addUser(string $name, string $email) : void
+  public function addUser(string $name, string $email): void
   {
     try {
-      if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         throw new InvalidArgumentException("Invalid email format");
       }
       $sql = "INSERT INTO Users (name, email) VALUES ('$name', '$email')";
@@ -51,25 +51,25 @@ class User
     }
   }
 
-  public function deleteUser(int $id) : void
+  public function deleteUser(int $id): void
   {
     $sql = "DELETE FROM Users WHERE id = $id";
     $this->pdo->query($sql);
   }
 
-  public function getUserById(int $id) : array
+  public function getUserById(int $id): array
   {
     $sql = "SELECT id, name, email from Users WHERE id = $id";
     $stmt = $this->pdo->query($sql);
     return $stmt->fetch(PDO::FETCH_ASSOC);
   }
 
-  public function updateUser(int $id, string $name, string $email) : void
+  public function updateUser(int $id, string $name, string $email): void
   {
     try {
-    $user = $this->getUserById($id);
+      $user = $this->getUserById($id);
 
-      if(!$user){
+      if (!$user) {
         throw new InvalidArgumentException("User is not found!");
       }
 
@@ -79,11 +79,11 @@ class User
       print($e->getMessage());
     }
   }
-  public function searchUsers(string $str) : void
+  public function searchUsers(string $str): void
   {
     $sql = "SELECT * FROM Users";
 
-    if(trim($str) != ""){
+    if (trim($str) != "") {
       $stmt = $this->pdo->query($sql . " WHERE name LIKE '%$str%' OR email LIKE '%$str%'");
 
       while ($row = $stmt->fetch()) {
