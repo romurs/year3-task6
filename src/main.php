@@ -12,7 +12,11 @@ while (true) {
 
   switch ($actionNum) {
     case 1:
-      $user->showAllData();
+      $users = $user->showAllData();
+
+      foreach ($users as $row) {
+        print($row['id'] .  " | " . $row['name'] . " | " . $row["email"] . "\n");
+      }
       break;
 
     case 2:
@@ -29,7 +33,10 @@ while (true) {
 
     case 4:
       $str = readline("Введите userName или email: ");
-      $user->searchUsers($str);
+      $users = $user->searchUsers($str);
+      foreach ($users as $row) {
+        print($row['id'] .  " | " . $row['name'] . " | " . $row["email"] . "\n");
+      }
       break;
 
     case 5:

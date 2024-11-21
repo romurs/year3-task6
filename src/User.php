@@ -29,13 +29,12 @@ class User
     $this->pdo = new PDO($this->dsn, $this->db['user'], $this->db['passwd'], $this->opt);
   }
 
-  public function showAllData(): void
+  public function showAllData(): array
   {
     $sql = "SELECT * FROM Users";
     $stmt = $this->pdo->query($sql);
-    while ($row = $stmt->fetch()) {
-      print($row['id'] .  " | " . $row['name'] . " | " . $row["email"] . "\n");
-    }
+  
+    return $stmt->fetchAll(PDO::FETCH_ASSOC); 
   }
 
   public function addUser(string $name, string $email): void
@@ -79,19 +78,16 @@ class User
       print($e->getMessage());
     }
   }
-  public function searchUsers(string $str): void
+  public function searchUsers(string $str): array
   {
     $sql = "SELECT * FROM Users";
 
     if (trim($str) != "") {
       $stmt = $this->pdo->query($sql . " WHERE name LIKE '%$str%' OR email LIKE '%$str%'");
 
-      while ($row = $stmt->fetch()) {
-        print($row['id'] .  " | " . $row['name'] . " | " . $row["email"] . "\n");
-      }
-      return;
+      return $stmt->fetchAll();
     }
 
-    $this->showAllData();
+    return $this->showAllData();
   }
 }
